@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 interface QualitySelectorProps {
-    videoDetails: any;
+    videoDetails: {
+        formats: { itag: string; resolution: string }[];
+    };
 }
 
 export const QualitySelector: React.FC<QualitySelectorProps> = ({ videoDetails }) => {
@@ -14,40 +16,40 @@ export const QualitySelector: React.FC<QualitySelectorProps> = ({ videoDetails }
 
     return (
         <div className="my-4">
-        <h2 className="text-xl font-semibold">Select Quality</h2>
-        <select
-            value={quality}
-            onChange={(e) => setQuality(e.target.value)}
-            className="p-2 border rounded"
-        >
-            {videoDetails.formats.map((format: any) => (
-            <option key={format.itag} value={format.resolution}>
-                {format.resolution}
-            </option>
-            ))}
-        </select>
-
-        <div className="mt-4">
-            <button
-            onClick={() => setFormat("video")}
-            className={`p-2 border rounded mr-2 ${format === "video" ? "bg-blue-500" : ""}`}
+            <h2 className="text-xl font-semibold">Select Quality</h2>
+            <select
+                value={quality}
+                onChange={(e) => setQuality(e.target.value)}
+                className="p-2 border rounded"
             >
-            Video
-            </button>
-            <button
-            onClick={() => setFormat("audio")}
-            className={`p-2 border rounded ${format === "audio" ? "bg-blue-500" : ""}`}
-            >
-            Audio
-            </button>
-        </div>
+                {videoDetails.formats.map((format: { itag: string; resolution: string }) => (
+                <option key={format.itag} value={format.resolution}>
+                    {format.resolution}
+                </option>
+                ))}
+            </select>
 
-        <button
-            onClick={handleDownload}
-            className="bg-green-500 text-white p-2 rounded w-full mt-4"
-        >
-            Download {format === "video" ? "Video" : "Audio"}
-        </button>
+            <div className="mt-4">
+                <button
+                    onClick={() => setFormat("video")}
+                    className={`p-2 border rounded mr-2 ${format === "video" ? "bg-blue-500" : ""}`}
+                >
+                    Video
+                </button>
+                <button
+                    onClick={() => setFormat("audio")}
+                    className={`p-2 border rounded ${format === "audio" ? "bg-blue-500" : ""}`}
+                >
+                    Audio
+                </button>
+            </div>
+
+            <button
+                onClick={handleDownload}
+                className="bg-green-500 text-white p-2 rounded w-full mt-4"
+            >
+                Download {format === "video" ? "Video" : "Audio"}
+            </button>
         </div>
     );
 };

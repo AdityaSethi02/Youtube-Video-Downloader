@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/routes/videoroutes.ts","./src/utils/ffmpeg.ts","./src/utils/yt.ts"],"version":"5.6.3"}
